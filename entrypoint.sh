@@ -3,7 +3,7 @@
 usage_docs() {
   echo ""
   echo "You can use this Github Action with:"
-  echo "- uses: convictional/trigger-workflow-and-wait"
+  echo "- uses: patrick1990/trigger-workflow-and-wait"
   echo "  with:"
   echo "    owner: keithconvictional"
   echo "    repo: myrepo"
@@ -87,6 +87,10 @@ trigger_workflow() {
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${INPUT_GITHUB_TOKEN}" \
     --data "{\"ref\":\"${ref}\",\"inputs\":${inputs}}"
+    
+   # Add wait until Github reacts on the triggered dispatch event
+   echo "Sleeping for ${wait_interval} seconds"
+   sleep $wait_interval
 }
 
 wait_for_workflow_to_finish() {
